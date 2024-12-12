@@ -1,16 +1,14 @@
-
-import React, { useRef } from 'react'
-import { SafeAreaView, View, Text, Image, TouchableOpacity, TextInput } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useRef } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import LottieView from 'lottie-react-native';
+import styles from './styles';
+import LottieView from 'lottie-react-native'; // Corrigindo a importação de LottieView
 
-import CheckListAnimation from '../../animations/CheckList.json'
-import styles from './styles'
+import CheckListAnimation from '../../animations/CheckList.json';
 
 export default function Home() {
-  const navigation = useNavigation();
-  const animation = useRef < LottieView > (null);
+  const animation = useRef(null); // Ref corrigido para LottieView
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -18,7 +16,7 @@ export default function Home() {
         style={styles.background}
       >
         <View style={styles.content}>
-          <Text style={styles.title}>HomeList</Text>
+          <Text style={styles.title}>Home List</Text>
           <Text style={styles.subTitle}>O que gostaria de fazer?</Text>
 
           <LottieView
@@ -28,10 +26,27 @@ export default function Home() {
             loop
             speed={2}
           />
+          {/* Botões */}
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Ver Lista de Produtos</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Gerar Relatório Baixo Estoque</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Gerar Relatório De Gastos</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.footerButton}>
+            <Text style={styles.footerButtonText}>Voltar ao Onboarding</Text>
+          </TouchableOpacity>
+
         </View>
 
       </LinearGradient>
 
     </View>
-  )
+  );
 }
