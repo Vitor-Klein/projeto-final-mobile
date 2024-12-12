@@ -8,7 +8,7 @@ export default StyleSheet.create({
   background: {
     flex: 1,
   },
-  
+
   content: {
     flex: 1,
     justifyContent: 'center',
@@ -21,45 +21,43 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFDF7',
     textAlign: 'center',
-    marginBottom: 10,
   },
   subTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFDF7',
-    marginBottom: 40,
   },
   button: {
     width: '100%',
     padding: 15,
-    marginVertical: 10,
+    marginVertical: 8,
     backgroundColor: '#84BC9C',
     borderRadius: 8,
     alignItems: 'center',
   },
   buttonText: {
     fontSize: 18,
-    color: '#000000',
+    color: '#0A2342',
     fontWeight: 'bold',
   },
   footerButton: {
     position: 'absolute',
-    bottom: 20, 
-    left: '10%', 
-    right: '10%', 
-    backgroundColor: '#0D3C76', 
+    bottom: 20,
+    left: '10%',
+    right: '10%',
+    backgroundColor: '#0D3C76',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#000000', 
+    borderColor: '#000000',
   },
   footerButtonText: {
     fontSize: 16,
-    color: '#84BC9C', 
+    color: '#84BC9C',
     textAlign: 'center',
-    textDecorationLine: 'underline', 
+    textDecorationLine: 'underline',
   },
 
 });

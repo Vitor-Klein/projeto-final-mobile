@@ -21,11 +21,12 @@ export default function Home() {
 
           <LottieView
             source={require("../../animations/CheckList.json")}
-            style={{ width: 400, height: 400 }}
+            style={{ width: 350, height: 350 }}
             autoPlay
             loop
             speed={2}
           />
+
           {/* Botões */}
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Ver Lista de Produtos</Text>
