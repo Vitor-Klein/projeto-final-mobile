@@ -20,17 +20,14 @@ export default function Home() {
         <View style={styles.content}>
           <Text style={styles.title}>HomeList</Text>
           <Text style={styles.subTitle}>O que gostaria de fazer?</Text>
-          {/* 
+
           <LottieView
+            source={require("../../animations/CheckList.json")}
+            style={{ width: 400, height: 400 }}
             autoPlay
-            ref={animation}
-            style={{
-              width: 200,
-              height: 200,
-              backgroundColor: '#eee',
-            }}
-            source={CheckListAnimation}
-          /> */}
+            loop
+            speed={2}
+          />
         </View>
 
       </LinearGradient>
