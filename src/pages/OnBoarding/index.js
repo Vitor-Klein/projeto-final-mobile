@@ -18,10 +18,10 @@ export default function OnBoarding() {
             image: <Image
               style={styles.stepImage}
               source={require('../../assets/Logo.png')} />,
-            title: 'Bem vindo ao HomeTidy',
+            title: 'Bem vindo ao HomeList',
             subtitle: 'Seu app de gestão para inventarios domesticos personalizado',
-            titleStyles: { fontSize: 40, fontWeight: 'bold' },
-            subTitleStyles: { fontSize: 20 }
+            titleStyles: { fontSize: 40, fontWeight: 'bold', textAlign: 'center', width: 400 },
+            subTitleStyles: { fontSize: 20, textAlign: 'center', width: 400 },
           },
           {
             backgroundColor: '#2CA58D',
@@ -35,8 +35,8 @@ export default function OnBoarding() {
           },
         ]}
         bottomBarColor='#ffffff00 '
-        onSkip={() => navigation.navigate('Login')}
-        onDone={() => navigation.navigate('Login')}
+        onSkip={() => navigation.navigate('Home')}
+        onDone={() => navigation.navigate('Home')}
       />
     </View>
   )
