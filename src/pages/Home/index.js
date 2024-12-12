@@ -1,13 +1,20 @@
 import React, { useRef } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import styles from './styles';
-import LottieView from 'lottie-react-native'; // Corrigindo a importação de LottieView
+import { useNavigation } from '@react-navigation/native'
 
-import CheckListAnimation from '../../animations/CheckList.json';
+import styles from './styles';
+import LottieView from 'lottie-react-native';
+
 
 export default function Home() {
-  const animation = useRef(null); // Ref corrigido para LottieView
+  const animation = useRef(null);
+  const navigation = useNavigation();
+
+  function backToOnBoarding() {
+    navigation.navigate("OnBoarding")
+  }
+
 
   return (
     <View style={styles.container}>
@@ -26,23 +33,26 @@ export default function Home() {
             loop
             speed={2}
           />
+          <View style={styles.buttonsContainer}>
+            {/* Botões */}
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Ver Lista de Produtos</Text>
+            </TouchableOpacity>
 
-          {/* Botões */}
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Ver Lista de Produtos</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Gerar Relatório Baixo Estoque</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Gerar Relatório Baixo Estoque</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Gerar Relatório De Gastos</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Gerar Relatório De Gastos</Text>
-          </TouchableOpacity>
+          </View>
 
-          <TouchableOpacity style={styles.footerButton}>
+          <TouchableOpacity onPress={() => backToOnBoarding()} style={styles.footerButton}>
             <Text style={styles.footerButtonText}>Voltar ao Onboarding</Text>
           </TouchableOpacity>
+
 
         </View>
 

@@ -29,7 +29,7 @@ export default function OnBoarding() {
               style={styles.stepImage}
               source={require('../../assets/step2Image.png')} />,
             title: 'Listas interativas e super dinamicas',
-            subtitle: 'Crie listas de compras, tarefas e muito mais',
+            subtitle: 'Gerencie itens em estoque, tarefas e muito mais',
             titleStyles: { fontSize: 40, fontWeight: 'bold' },
             subTitleStyles: { fontSize: 20 }
           },

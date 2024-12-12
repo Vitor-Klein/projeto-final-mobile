@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
   content: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
@@ -21,11 +21,16 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFDF7',
     textAlign: 'center',
+    marginTop: 50
   },
   subTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFDF7',
+  },
+  buttonsContainer: {
+    width: '100%',
+    marginTop: -40
   },
   button: {
     width: '100%',
@@ -41,17 +46,12 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   footerButton: {
-    position: 'absolute',
-    bottom: 20,
-    left: '10%',
-    right: '10%',
-    backgroundColor: '#0D3C76',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    width: '100%',
+    padding: 15,
+    marginVertical: 8,
+    borderRadius: 8,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#000000',
+    bottom: 0
   },
   footerButtonText: {
     fontSize: 16,
