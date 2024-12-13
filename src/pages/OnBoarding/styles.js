@@ -6,10 +6,13 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#0A2342',
   },
   stepImage: {
     width: 200,
     height: 200,
+  },
+  backgroundSVG: {
+    flex: 1,
   },
 });

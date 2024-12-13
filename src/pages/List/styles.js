@@ -11,12 +11,20 @@ export default StyleSheet.create({
   backgroundSVG: {
     flex: 1,
   },
-
   content: {
     flex: 1,
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    justifyContent: 'space-between'
+  },
+
+  listContainer: {
+    width: '100%',
+    height: '85%',
+    backgroundColor: '#0A2342',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
 
   title: {
@@ -24,30 +32,8 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFDF7',
     textAlign: 'center',
-    marginTop: 50
   },
-  subTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FFFDF7',
-  },
-  buttonsContainer: {
-    width: '100%',
-    marginTop: -40
-  },
-  button: {
-    width: '100%',
-    padding: 15,
-    marginVertical: 8,
-    backgroundColor: '#84BC9C',
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#0A2342',
-    fontWeight: 'bold',
-  },
+
   footerButton: {
     width: '100%',
     padding: 15,
@@ -62,5 +48,4 @@ export default StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
-
 });
