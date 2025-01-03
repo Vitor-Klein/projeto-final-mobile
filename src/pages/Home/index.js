@@ -20,7 +20,6 @@ export default function Home() {
     navigation.navigate("List")
   }
 
-
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -51,13 +50,11 @@ export default function Home() {
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Gerar Relatório De Gastos</Text>
               </TouchableOpacity>
-
             </View>
 
             <TouchableOpacity onPress={() => backToOnBoarding()} style={styles.footerButton}>
               <Text style={styles.footerButtonText}>Voltar ao Onboarding</Text>
             </TouchableOpacity>
-
 
           </View>
         </ImageBackground>

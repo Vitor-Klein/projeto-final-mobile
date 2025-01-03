@@ -30,7 +30,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#FFFDF7',
+    color: '#FFFDF799',
     textAlign: 'center',
   },
 
@@ -48,4 +48,34 @@ export default StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
+
+  fab: {
+    backgroundColor: '#84BC9C',
+    width: 70,
+    height: 70
+  },
+
+  itemContainer: {
+    backgroundColor: '#FFFDF7',
+    padding: 10,
+    borderRadius: 8
+  },
+
+  itemName: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  itemDetails: {
+    fontSize: 16,
+    color: '#4775D9'
+  },
+  itemVal: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  itemUnity: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+
 });

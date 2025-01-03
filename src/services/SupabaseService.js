@@ -6,28 +6,49 @@ class SupabaseService {
     this.client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 
-  async signIn(email, password) {
-    const { data, error } = await this.client.auth.signInWithPassword({ email, password });
+  async getItems() {
+    try {
+      const { data, error } = await this.client
+        .from('itemestoque')
+        .select('*')
+        .order('id', { ascending: true });
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar itens do estoque:', error.message);
+      throw new Error('Não foi possível carregar os itens do estoque.');
+    }
+  }
+
+  async addItem(item) {
+    const dataValidade = item.DataValidade
+      ? new Date(item.DataValidade).toISOString()
+      : null;
+
+    if (dataValidade && isNaN(new Date(dataValidade).getTime())) {
+      throw new Error('Data de validade inválida.');
+    }
+
+    const newItem = {
+      Nome: item.Nome,
+      Categoria: item.Categoria,
+      Quantidade: item.Quantidade,
+      DataAdicao: new Date().toISOString(), // Sempre válida como data atual
+      DataValidade: dataValidade,
+      Unidade: item.Unidade,
+    };
+
+    console.log(newItem)
+    const { data, error } = await this.client
+      .from('itemestoque') // Nome da tabela no banco de dados
+      .insert([newItem]);
+
     if (error) throw new Error(error.message);
     return data;
-  }
-
-  async signUp(email, password) {
-    const { data, error } = await this.client.auth.signUp({ email, password });
-    if (error) throw new Error(error.message);
-    return data;
-  }
-
-  async signOut() {
-    const { error } = await this.client.auth.signOut();
-    if (error) throw new Error(error.message);
-    return true;
-  }
-
-  async getUser() {
-    const { data, error } = await this.client.auth.getUser();
-    if (error) throw new Error(error.message);
-    return data.user;
   }
 }
 
