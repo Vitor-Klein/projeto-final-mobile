@@ -19,23 +19,34 @@ export default function CreateItem() {
   const [DataValidade, setDataValidade] = useState('');
   const [Unidade, setUnidade] = useState('');
 
+  function formatDateToSQL(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   async function handleCreateItem() {
     try {
-      console.log("chegou")
-      const dataAdicao = new Date().getTime(); // Converte a data e hora atual para timestamp (em milissegundos)
-      const dataValidadeTimestamp = DataValidade ? new Date(DataValidade.split('/').reverse().join('-')).getTime() : null; // Converte DataValidade para timestamp
-      console.log("chegou2")
+      const dataAdicao = formatDateToSQL(new Date().getTime()); // Converte para o formato "YYYY-MM-DD HH:mm:ss"
+      const dataValidadeTimestamp = DataValidade
+        ? formatDateToSQL(new Date(DataValidade.split('/').reverse().join('-')).getTime())
+        : null;
 
       const item = {
-        Nome,
-        Categoria,
-        Quantidade: parseInt(Quantidade, 10),
-        DataValidade: dataValidadeTimestamp, // Armazena o timestamp de DataValidade
-        Unidade,
-        dataAdicao,
+        nome: Nome,
+        categoria: Categoria,
+        quantidade: parseInt(Quantidade, 10),
+        datavalidade: dataValidadeTimestamp, // Formato "YYYY-MM-DD HH:mm:ss"
+        unidade: Unidade,
+        dataadicao: dataAdicao, // Formato "YYYY-MM-DD HH:mm:ss"
       };
 
-      console.log(item);
       await supabaseService.addItem(item);
       Alert.alert("Sucesso", "Item cadastrado com sucesso!");
       navigation.navigate("List");
@@ -43,6 +54,7 @@ export default function CreateItem() {
       Alert.alert("Erro", error.message);
     }
   }
+
 
 
   function backToList() {
@@ -63,7 +75,7 @@ export default function CreateItem() {
                     variant="underlined"
                     style={styles.textInputName}
                     value={Nome}
-                    onChangeText={(itemValue) => setNome(itemValue)}
+                    onChangeText={setNome}
                   />
                 </FormControl>
 

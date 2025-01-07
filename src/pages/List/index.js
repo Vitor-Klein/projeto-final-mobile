@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { ImageBackground } from 'react-native';
@@ -16,6 +16,7 @@ export default function List() {
   const [itens, setItens] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [filteredItens, setFilteredItens] = useState([]);
+  const [refreshing, setRefreshing] = useState(false); // Novo estado para controlar o refresh
 
   useEffect(() => {
     fetchItems();
@@ -33,11 +34,17 @@ export default function List() {
     try {
       const data = await supabaseService.getItems();
       setItens(data);
-      console.log(data)
       setFilteredItens(data);
     } catch (error) {
       console.error("Erro ao buscar itens: ", error);
     }
+  }
+
+  // Função chamada ao realizar o pull-to-refresh
+  async function handleRefresh() {
+    setRefreshing(true); // Ativa o indicador de refresh
+    await fetchItems(); // Busca os itens novamente
+    setRefreshing(false); // Desativa o indicador de refresh
   }
 
   function backToHome() {
@@ -97,6 +104,14 @@ export default function List() {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
                 ListEmptyComponent={renderEmptyList}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    colors={['#0A2342']} // Cor do indicador de refresh no Android
+                    tintColor="#FFFDF7" // Cor do indicador de refresh no iOS
+                  />
+                }
               />
 
               <Fab

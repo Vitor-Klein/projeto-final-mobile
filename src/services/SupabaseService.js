@@ -25,6 +25,7 @@ class SupabaseService {
   }
 
   async addItem(item) {
+    console.log(item)
     const dataValidade = item.DataValidade
       ? new Date(item.DataValidade).toISOString()
       : null;
@@ -33,19 +34,9 @@ class SupabaseService {
       throw new Error('Data de validade inválida.');
     }
 
-    const newItem = {
-      Nome: item.Nome,
-      Categoria: item.Categoria,
-      Quantidade: item.Quantidade,
-      DataAdicao: new Date().toISOString(), // Sempre válida como data atual
-      DataValidade: dataValidade,
-      Unidade: item.Unidade,
-    };
-
-    console.log(newItem)
     const { data, error } = await this.client
-      .from('itemestoque') // Nome da tabela no banco de dados
-      .insert([newItem]);
+      .from('itemestoque')
+      .insert([item]);
 
     if (error) throw new Error(error.message);
     return data;

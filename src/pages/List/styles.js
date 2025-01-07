@@ -58,7 +58,8 @@ export default StyleSheet.create({
   itemContainer: {
     backgroundColor: '#FFFDF7',
     padding: 10,
-    borderRadius: 8
+    borderRadius: 8,
+    marginTop: 20
   },
 
   itemName: {
