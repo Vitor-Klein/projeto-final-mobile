@@ -41,6 +41,24 @@ class SupabaseService {
     if (error) throw new Error(error.message);
     return data;
   }
+
+  async updateItemQuantity(id, newQuantity) {
+    try {
+      const { data, error } = await this.client
+        .from('itemestoque') // Certifique-se de que o nome da tabela está correto
+        .update({ quantidade: newQuantity })
+        .eq('id', id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    } catch (error) {
+      console.error('Erro ao atualizar quantidade do item:', error.message);
+      throw new Error('Não foi possível atualizar a quantidade do item.');
+    }
+  }
+
 }
 
 const supabaseService = new SupabaseService();
