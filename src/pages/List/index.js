@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, RefreshControl, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { ImageBackground } from 'react-native';
@@ -19,6 +19,7 @@ export default function List() {
   const [refreshing, setRefreshing] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [quantityDelete, setQuantityDelete] = useState(1);
 
   useEffect(() => {
     fetchItems();
@@ -31,6 +32,18 @@ export default function List() {
     );
     setFilteredItens(filtered);
   }, [searchText, itens]);
+
+  function formatDateToSQL(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
 
   async function fetchItems() {
     try {
@@ -58,13 +71,35 @@ export default function List() {
 
   function handleDelete(item) {
     setSelectedItem(item);
+    setQuantityDelete(0)
     setShowModalDelete(true);
+  }
+
+  async function handleCreateConsumedProduct() {
+    try {
+      const dataConsume = formatDateToSQL(new Date().getTime());
+
+      const itemConsumed = {
+        itemid: selectedItem.id,
+        itemname: selectedItem.nome,
+        dataconsumo: dataConsume,
+        quantidadeconsumida: quantityDelete
+      };
+      await supabaseService.createConsumedProductRecord(itemConsumed);
+      Alert.alert("Sucesso", "Registro de consumo criado com sucesso!");
+    } catch (error) {
+      Alert.alert("Erro", error.message);
+    }
   }
 
   async function confirmDelete() {
     if (selectedItem) {
       try {
-        const updatedItem = { ...selectedItem, quantidade: selectedItem.quantidade - 1 };
+        if (quantityDelete > selectedItem.quantidade) {
+          return Alert.alert('Valor invalido, voce não possui tantas unidades');
+        }
+        const updatedItem = { ...selectedItem, quantidade: selectedItem.quantidade - quantityDelete };
+        await handleCreateConsumedProduct();
         await supabaseService.updateItemQuantity(selectedItem.id, updatedItem.quantidade);
         await fetchItems();
         setShowModalDelete(false);
@@ -162,8 +197,17 @@ export default function List() {
           <Modal.Content>
             <Modal.CloseButton />
             <Modal.Header>Confirmar Exclusão</Modal.Header>
-            <Modal.Body>
-              <Text>Deseja excluir uma unidade de "{selectedItem?.nome}"?</Text>
+            <Modal.Body flex={'auto'} justifyContent={'center'} alignItems={'center'}>
+              <Text>Deseja excluir quantas unidade de "{selectedItem?.nome}"?</Text>
+              <Input
+                size="xl"
+                width="1/4"
+                textAlign={'center'}
+                backgroundColor="#FFFDF7"
+                keyboardType='number-pad'
+                value={quantityDelete}
+                onChangeText={setQuantityDelete}
+              />
             </Modal.Body>
             <Modal.Footer>
               <Button.Group>

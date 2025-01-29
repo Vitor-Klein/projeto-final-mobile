@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { ImageBackground } from 'react-native';
@@ -33,7 +33,7 @@ export default function CreateItem() {
 
   async function handleCreateItem() {
     try {
-      const dataAdicao = formatDateToSQL(new Date().getTime()); // Converte para o formato "YYYY-MM-DD HH:mm:ss"
+      const dataAdicao = formatDateToSQL(new Date().getTime());
       const dataValidadeTimestamp = DataValidade
         ? formatDateToSQL(new Date(DataValidade.split('/').reverse().join('-')).getTime())
         : null;
@@ -42,9 +42,9 @@ export default function CreateItem() {
         nome: Nome,
         categoria: Categoria,
         quantidade: parseInt(Quantidade, 10),
-        datavalidade: dataValidadeTimestamp, // Formato "YYYY-MM-DD HH:mm:ss"
+        datavalidade: dataValidadeTimestamp,
         unidade: Unidade,
-        dataadicao: dataAdicao, // Formato "YYYY-MM-DD HH:mm:ss"
+        dataadicao: dataAdicao,
       };
 
       await supabaseService.addItem(item);
@@ -128,6 +128,7 @@ export default function CreateItem() {
                     selectedValue={Unidade}
                     mode="dropdown"
                     onValueChange={(itemValue) => setUnidade(itemValue)}>
+                    <Picker.Item label="" value="" />
                     <Picker.Item label="Unidades" value="Unidades" />
                     <Picker.Item label="Quilos" value="Quilos" />
                     <Picker.Item label="Litros" value="Litros" />
@@ -142,6 +143,7 @@ export default function CreateItem() {
               <TouchableOpacity onPress={backToList} style={styles.footerButton}>
                 <Text style={styles.footerButtonText}>Voltar para Home</Text>
               </TouchableOpacity>
+
             </View>
           </View>
         </ImageBackground>

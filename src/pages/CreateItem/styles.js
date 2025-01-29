@@ -21,7 +21,8 @@ export default StyleSheet.create({
   contentContainer: {
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'absolute'
   },
 
   formContainer: {
@@ -74,7 +75,8 @@ export default StyleSheet.create({
     marginVertical: 8,
     borderRadius: 8,
     alignItems: 'center',
-    bottom: 0
+    bottom: 0,
+    position: 'relative'
   },
   footerButtonText: {
     fontSize: 16,

@@ -11,6 +11,7 @@ class SupabaseService {
       const { data, error } = await this.client
         .from('itemestoque')
         .select('*')
+        .gt('quantidade', 0)
         .order('id', { ascending: true });
 
       if (error) {
@@ -25,7 +26,6 @@ class SupabaseService {
   }
 
   async addItem(item) {
-    console.log(item)
     const dataValidade = item.DataValidade
       ? new Date(item.DataValidade).toISOString()
       : null;
@@ -57,6 +57,22 @@ class SupabaseService {
       console.error('Erro ao atualizar quantidade do item:', error.message);
       throw new Error('Não foi possível atualizar a quantidade do item.');
     }
+  }
+
+  async createConsumedProductRecord(consumedItem) {
+    const dataValidade = consumedItem.DataValidade
+      ? new Date(consumedItem.DataValidade).toISOString()
+      : null;
+
+    if (dataValidade && isNaN(new Date(dataValidade).getTime())) {
+      throw new Error('Data de validade inválida.');
+    }
+    const { data, error } = await this.client
+      .from('produtoconsumido')
+      .insert([consumedItem]);
+
+    if (error) throw new Error(error.message);
+    return data;
   }
 
 }
