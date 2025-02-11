@@ -19,6 +19,9 @@ export default function Home() {
   function navigateToList() {
     navigation.navigate("List")
   }
+  function navigateToProductRecordPage(){
+    navigation.navigate("ProductRecordPage")
+  }
 
   return (
     <View style={styles.container}>
@@ -47,7 +50,7 @@ export default function Home() {
                 <Text style={styles.buttonText}>Gerar Relatório Baixo Estoque</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity onPress={navigateToProductRecordPage} style={styles.button}>
                 <Text style={styles.buttonText}>Gerar Relatório De Gastos</Text>
               </TouchableOpacity>
             </View>
