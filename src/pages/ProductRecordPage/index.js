@@ -20,19 +20,13 @@ export default function Report() {
 
   async function fetchConsumedItens() {
     try {
-      let { data, error } = await supabase
-        .from('produtoconsumido')  
-        .select('*');  
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
+      let data = await supabaseService.getConsumedItems();
       setConsumedItems(data); 
     } catch (error) {
       console.error('Erro ao buscar itens consumidos: ', error.message);
     }
   }
+  
 
   async function handleRefresh() {
     setRefreshing(true);
@@ -91,7 +85,7 @@ export default function Report() {
               />
             </View>
   
-            {/* Corrigindo o erro aqui com o uso de <View> ou <Fragment> */}
+          
             <View style={styles.footer}>
               <TouchableOpacity onPress={() => backToHome()} style={styles.footerButton}>
                 <Text style={styles.footerButtonText}>Voltar para Home</Text>
