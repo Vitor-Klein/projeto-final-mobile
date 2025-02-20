@@ -74,6 +74,19 @@ class SupabaseService {
     if (error) throw new Error(error.message);
     return data;
   }
+  async getConsumedItems() {
+    try {
+      const { data, error } = await this.client
+        .from('produtoconsumido')
+        .select('*');
+  
+      if (error) throw new Error(error.message);
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar itens consumidos:', error.message);
+      throw error;
+    }
+  }
 
   async fetchConsumedItens() {
     try {
@@ -95,6 +108,7 @@ class SupabaseService {
   }
 
 }
+
 
 const supabaseService = new SupabaseService();
 export default supabaseService;
