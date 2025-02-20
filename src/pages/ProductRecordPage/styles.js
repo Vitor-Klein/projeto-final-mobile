@@ -40,7 +40,7 @@ export default StyleSheet.create({
   itemContainer: {
     backgroundColor: '#FFFDF7',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 4,
     width: '90%',
     marginVertical: 10,
     shadowColor: '#000',
@@ -60,7 +60,7 @@ export default StyleSheet.create({
   },
   itemDetails: {
     fontSize: 16,
-    color: '#4775D9',
+    color: '#D81E5B',
     marginTop: 5,
   },
   itemFooter: {

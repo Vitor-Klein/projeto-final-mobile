@@ -80,7 +80,7 @@ export default function Report() {
       </Box>
       <Text style={styles.itemDetails}>Quantidade consumida: {consumedItem.quantidadeconsumida}</Text>
       <Box w={320} justifyContent="space-between" flexDirection="row" marginTop={5}>
-        <Text style={styles.itemVal}>Data: {new Date(consumedItem.dataconsumo).toLocaleDateString()}</Text>
+        <Text style={styles.itemVal}>Data do consumo: {new Date(consumedItem.dataconsumo).toLocaleDateString()}</Text>
       </Box>
     </Box>
   );
