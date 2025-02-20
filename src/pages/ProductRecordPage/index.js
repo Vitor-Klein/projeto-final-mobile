@@ -111,17 +111,11 @@ export default function Report() {
                 }
               />
             </View>
-<<<<<<< HEAD
-
-=======
-
-
->>>>>>> 22c23662dc40627ce771d64c6c2c71f68de96f53
-  <View style={styles.footer}>
-    <TouchableOpacity onPress={() => backToHome()} style={styles.footerButton}>
-      <Text style={styles.footerButtonText}>Voltar para Home</Text>
-    </TouchableOpacity>
-  </View>
+            <View style={styles.footer}>
+              <TouchableOpacity onPress={() => backToHome()} style={styles.footerButton}>
+                <Text style={styles.footerButtonText}>Voltar para Home</Text>
+              </TouchableOpacity>
+            </View>
           </View >
         </ImageBackground >
       </LinearGradient >
