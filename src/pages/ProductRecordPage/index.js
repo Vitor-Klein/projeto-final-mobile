@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, FlatList, RefreshControl, Alert } from 'r
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { ImageBackground } from 'react-native';
-import { Box } from 'native-base';
+import { Input, Icon, Fab, Box, DeleteIcon, Modal, Button, VStack } from 'native-base';
+import MaterialIcons from '@expo/vector-icons/Ionicons';
+
 import LottieView from 'lottie-react-native';
 import supabaseService from '../../services/SupabaseService';
 import styles from './styles';
@@ -13,24 +15,29 @@ export default function Report() {
   const navigation = useNavigation();
   const [consumedItems, setConsumedItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [filteredItens, setFilteredItens] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
 
   useEffect(() => {
     fetchConsumedItens();
   }, []);
 
+  useEffect(() => {
+    const filtered = consumedItems.filter((consumedItem) =>
+      consumedItem.nome.toLowerCase().includes(searchText.toLowerCase()) ||
+      consumedItem.categoria.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredItens(filtered);
+  }, [searchText, consumedItems]);
+
   async function fetchConsumedItens() {
     try {
-      let { data, error } = await supabase
-        .from('produtoconsumido')  
-        .select('*');  
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      setConsumedItems(data); 
+      const data = await supabaseService.fetchConsumedItens();
+      setConsumedItems(data);
+      setFilteredItens(data);
     } catch (error) {
-      console.error('Erro ao buscar itens consumidos: ', error.message);
+      console.error('Erro ao buscar itens: ', error);
     }
   }
 
@@ -57,14 +64,14 @@ export default function Report() {
     </View>
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ consumedItem }) => (
     <Box w={350} style={styles.itemContainer}>
       <Box w={320} justifyContent="space-between" flexDirection="row">
-        <Text style={styles.itemName}>{item.itemname}</Text>
+        <Text style={styles.itemName}>{consumedItem.itemname}</Text>
       </Box>
-      <Text style={styles.itemDetails}>Quantidade consumida: {item.quantidadeconsumida}</Text>
+      <Text style={styles.itemDetails}>Quantidade consumida: {consumedItem.quantidadeconsumida}</Text>
       <Box w={320} justifyContent="space-between" flexDirection="row" marginTop={5}>
-        <Text style={styles.itemVal}>Data: {new Date(item.dataconsumo).toLocaleDateString()}</Text>
+        <Text style={styles.itemVal}>Data: {new Date(consumedItem.dataconsumo).toLocaleDateString()}</Text>
       </Box>
     </Box>
   );
@@ -74,11 +81,24 @@ export default function Report() {
       <LinearGradient colors={['#0A2342', '#0D3C76']} style={styles.background}>
         <ImageBackground style={styles.backgroundSVG} source={ImageSvg} resizeMode="cover">
           <View style={styles.content}>
+            <Input
+              InputRightElement={
+                <Icon as={<MaterialIcons name="search" />} size={5} ml="2" margin="1.5" color="#0A2342" />
+              }
+              style={styles.serchInput}
+              size="lg"
+              width="5/6"
+              marginTop="12"
+              backgroundColor="#FFFDF7"
+              placeholder="Pesquisar"
+              value={searchText}
+              onChangeText={setSearchText}
+            />
             <View style={styles.listContainer}>
               <FlatList
                 data={consumedItems}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(consumedItem) => consumedItem.id.toString()}
                 ListEmptyComponent={renderEmptyList}
                 refreshControl={
                   <RefreshControl
@@ -90,8 +110,7 @@ export default function Report() {
                 }
               />
             </View>
-  
-            {/* Corrigindo o erro aqui com o uso de <View> ou <Fragment> */}
+
             <View style={styles.footer}>
               <TouchableOpacity onPress={() => backToHome()} style={styles.footerButton}>
                 <Text style={styles.footerButtonText}>Voltar para Home</Text>
@@ -102,5 +121,5 @@ export default function Report() {
       </LinearGradient>
     </View>
   );
-  
+
 }
