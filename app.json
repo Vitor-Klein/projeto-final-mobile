@@ -30,16 +30,11 @@
         "projectId": "c025d35d-f601-417c-b037-d8c5ecd14a30"
       }
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
+    "runtimeVersion": "1.0.0"
     },
     "updates": {
       "url": "https://u.expo.dev/c025d35d-f601-417c-b037-d8c5ecd14a30"
-    },
-"extra": {
-      "eas": {
-        "projectId": "c025d35d-f601-417c-b037-d8c5ecd14a30"
-      }
     }
+
   }
-}
+

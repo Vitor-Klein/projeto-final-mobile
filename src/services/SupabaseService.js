@@ -74,8 +74,41 @@ class SupabaseService {
     if (error) throw new Error(error.message);
     return data;
   }
+  async getConsumedItems() {
+    try {
+      const { data, error } = await this.client
+        .from('produtoconsumido')
+        .select('*');
+  
+      if (error) throw new Error(error.message);
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar itens consumidos:', error.message);
+      throw error;
+    }
+  }
+
+  async fetchConsumedItens() {
+    try {
+      const { data, error } = await this.client
+        .from('produtoconsumido')
+        .select('*')
+        .gt('quantidade', 0)
+        .order('id', { ascending: true });
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar itens do estoque:', error.message);
+      throw new Error('Não foi possível carregar os itens do estoque.');
+    }
+  }
 
 }
+
 
 const supabaseService = new SupabaseService();
 export default supabaseService;

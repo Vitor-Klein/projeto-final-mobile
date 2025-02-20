@@ -4,8 +4,8 @@
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -16,10 +16,10 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@supabase/supabase-js": "^2.47.0",
-    "expo": "~52.0.31",
+    "expo": "^52.0.36",
     "expo-linear-gradient": "~14.0.2",
     "expo-status-bar": "~2.0.1",
-    "expo-updates": "~0.26.17",
+    "expo-updates": "^0.26.19",
     "lottie-react-native": "7.1.0",
     "native-base": "^3.4.28",
     "react": "18.3.1",
