@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ImageBackground } from 'react-native';
 import { Input, Icon, Fab, Box, DeleteIcon, Modal, Button, VStack } from 'native-base';
 import MaterialIcons from '@expo/vector-icons/Ionicons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import LottieView from 'lottie-react-native';
 import supabaseService from '../../services/SupabaseService';
@@ -17,7 +18,8 @@ export default function Report() {
   const [refreshing, setRefreshing] = useState(false);
   const [filteredItens, setFilteredItens] = useState([]);
   const [searchText, setSearchText] = useState('');
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     fetchConsumedItens();
@@ -25,11 +27,11 @@ export default function Report() {
 
   useEffect(() => {
     const filtered = consumedItems.filter((consumedItem) =>
-      consumedItem.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-      consumedItem.categoria.toLowerCase().includes(searchText.toLowerCase())
+      consumedItem.itemname.toLowerCase().includes(searchText.toLowerCase()) &&
+      new Date(consumedItem.dataconsumo).toDateString() === selectedDate.toDateString()
     );
     setFilteredItens(filtered);
-  }, [searchText, consumedItems]);
+  }, [searchText, consumedItems, selectedDate]);
 
   async function fetchConsumedItens() {
     try {
@@ -41,7 +43,6 @@ export default function Report() {
     }
   }
 
-
   async function handleRefresh() {
     setRefreshing(true);
     await fetchConsumedItens();
@@ -52,8 +53,15 @@ export default function Report() {
     navigation.navigate('Home');
   }
 
+  const onChangeDate = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setSelectedDate(selectedDate);
+    }
+  };
+
   const renderEmptyList = () => (
-    <View>
+    <View style={styles.emptyListContainer}>
       <LottieView
         source={require('../../animations/EmptyList.json')}
         style={{ width: 350, height: 350 }}
@@ -61,11 +69,11 @@ export default function Report() {
         loop
         speed={1}
       />
-      <Text style={styles.title}>Nenhum produto consumido</Text>
+      <Text style={styles.title}>Nenhum produto consumido nessa data</Text>
     </View>
   );
 
-  const renderItem = ({ consumedItem }) => (
+  const renderItem = ({ item: consumedItem }) => (
     <Box w={350} style={styles.itemContainer}>
       <Box w={320} justifyContent="space-between" flexDirection="row">
         <Text style={styles.itemName}>{consumedItem.itemname}</Text>
@@ -95,12 +103,24 @@ export default function Report() {
               value={searchText}
               onChangeText={setSearchText}
             />
+            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.datePickerButton}>
+              <Text style={styles.datePickerText}>Selecionar Data: {selectedDate.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={selectedDate}
+                mode="date"
+                display="default"
+                onChange={onChangeDate}
+              />
+            )}
             <View style={styles.listContainer}>
               <FlatList
-                data={consumedItems}
+                data={filteredItens}
                 renderItem={renderItem}
                 keyExtractor={(consumedItem) => consumedItem.id.toString()}
                 ListEmptyComponent={renderEmptyList}
+                contentContainerStyle={styles.flatListContent}
                 refreshControl={
                   <RefreshControl
                     refreshing={refreshing}
@@ -121,5 +141,4 @@ export default function Report() {
       </LinearGradient >
     </View >
   );
-
 }

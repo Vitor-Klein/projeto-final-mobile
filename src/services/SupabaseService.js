@@ -79,7 +79,7 @@ class SupabaseService {
       const { data, error } = await this.client
         .from('produtoconsumido')
         .select('*');
-  
+
       if (error) throw new Error(error.message);
       return data;
     } catch (error) {
@@ -93,7 +93,7 @@ class SupabaseService {
       const { data, error } = await this.client
         .from('produtoconsumido')
         .select('*')
-        .gt('quantidade', 0)
+        .gt('quantidadeconsumida', 0)
         .order('id', { ascending: true });
 
       if (error) {

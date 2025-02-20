@@ -19,7 +19,7 @@ export default function Home() {
   function navigateToList() {
     navigation.navigate("List")
   }
-  function navigateToProductRecordPage(){
+  function navigateToProductRecordPage() {
     navigation.navigate("ProductRecordPage")
   }
 
@@ -44,10 +44,6 @@ export default function Home() {
             <View style={styles.buttonsContainer}>
               <TouchableOpacity onPress={() => navigateToList()} style={styles.button}>
                 <Text style={styles.buttonText}>Ver Lista de Produtos</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Gerar Relatório Baixo Estoque</Text>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={navigateToProductRecordPage} style={styles.button}>

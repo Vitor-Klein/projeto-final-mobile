@@ -14,17 +14,7 @@ export default StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-
-  listContainer: {
-    width: '100%',
-    height: '85%',
-    backgroundColor: '#0A2342',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
   title: {
@@ -33,7 +23,77 @@ export default StyleSheet.create({
     color: '#FFFDF799',
     textAlign: 'center',
   },
-
+  searchInput: {
+    marginBottom: 20,
+  },
+  listContainer: {
+    width: '100%',
+    height: '90%',
+    flex: 1,
+  },
+  flatListContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  itemContainer: {
+    backgroundColor: '#FFFDF7',
+    padding: 15,
+    borderRadius: 8,
+    width: '90%',
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  itemHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  itemName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#0A2342',
+  },
+  itemDetails: {
+    fontSize: 16,
+    color: '#4775D9',
+    marginTop: 5,
+  },
+  itemFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  itemVal: {
+    fontSize: 16,
+    color: '#0A2342',
+    fontWeight: 'bold',
+  },
+  emptyListContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  datePickerButton: {
+    backgroundColor: '#FFFDF7',
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
+    width: '80%',
+    alignItems: 'center',
+  },
+  datePickerText: {
+    fontSize: 16,
+    color: '#0A2342',
+    fontWeight: 'bold',
+  },
+  footer: {
+    width: '100%',
+  },
   footerButton: {
     width: '100%',
     padding: 15,
@@ -48,35 +108,4 @@ export default StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
-
-  fab: {
-    backgroundColor: '#84BC9C',
-    width: 70,
-    height: 70
-  },
-
-  itemContainer: {
-    backgroundColor: '#FFFDF7',
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 20
-  },
-
-  itemName: {
-    fontSize: 24,
-    fontWeight: 'bold'
-  },
-  itemDetails: {
-    fontSize: 16,
-    color: '#4775D9'
-  },
-  itemVal: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  itemUnity: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-
 });
